@@ -1,0 +1,52 @@
+
+<div *ngIf="!isLoading"class="container mx-auto mt-8">
+    <!-- Task Input -->
+    <form [formGroup]="taskform" class="mb-4">
+      <div class="flex items-center">
+        ADD TASK:<input type="text" name="addTask"  class="form-input w-half rounded-md p-2 place-content-center mr-10" placeholder="Add new task..." formControlName="task">
+       ENTER  DUE DATE: <input type="date" name="Date"  class="form-input w-half rounded-md p-2 place-content-center mr-10" formControlName="date">
+        <button type="submit" class="font-size: 2.25rem line-height: 2.5rem ml-2 bg-blue-500 text-white rounded-md px-4 py-2" (click)="Onsubmit()">Add</button>
+      </div>
+    </form>
+</div>
+<div>
+<div class="text-center text-3xl">
+  <h1>My Task List</h1>
+
+<div *ngFor="let task of array">
+  <ul>
+    <li>
+      Task name:{{task.task_name}}<br>
+      Task Deadline:{{task.date}}
+      <button type="Update" class="font-size: 2.25rem line-height: 2.5rem ml-2 bg-green-500 text-white rounded-md px-4 py-2 mr-8 rounded-full py-3 px-6" (click)="onEditTask(task.primary, task.task_name, task.date)">Update</button>
+      <button type="Delete" class="font-size: 2.25rem line-height: 2.5rem ml-2 bg-red-500 text-white rounded-md px-4 py-2 rounded-full py-3 px-6" (click)="Onclick(task.primary)">Delete</button>
+    </li>
+  
+  </ul>
+</div>
+</div>
+</div>
+
+<div *ngIf="showCard" class="update-card place-content-center">
+ <div class=" min-h-screen bg-gradient-to-r from-purple-500 via-blue-200 to-pink-300 w-full h-screen">
+  <div class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="bg-pink-200 p-8 rounded-lg shadow-md w-96">
+  <h1 class="text-3xl">Update Task</h1>
+  <form>
+    <div>
+      <label for="task_name">Task Name:</label>
+      <input type="text" id="task_name" class="form-input w-half rounded-md p-2 place-content-center" [(ngModel)]="updatedData.task_name" name="task_name" required /><br><br>
+    </div>
+    <div>
+      <label for="date">Date:</label>
+      <input type="date" id="date" class="form-input w-half rounded-md p-2 place-content-center" [(ngModel)]="updatedData.date" name="date" required /><br><br>
+    </div>
+    <button type="submit" class="font-size: 2.25rem line-height: 2.5rem ml-2 bg-green-400 text-white rounded-md px-4 py-2 rounded-full py-3 px-6 mr-10" (click)="onUpdateTask()">Update Task</button>
+    <button type="button" class="font-size: 2.25rem line-height: 2.5rem ml-2 bg-red-500 text-white rounded-md px-4 py-2 rounded-full py-3 px-6" (click)="onCancelUpdate()">Cancel</button>
+  </form>
+  <div *ngIf="isLoading" class="animate-pulse">
+</div>
+</div>
+</div>
+ </div>
+
